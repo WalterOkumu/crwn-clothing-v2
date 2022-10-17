@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { signInWithGooglePopup, createUserDocumentFromAuth } from '../../../utils/firebase/firebase.utils';
+import Register from '../Register/index.';
 import './SignIn.styles.scss';
 
 const Login = () => {
@@ -13,6 +14,7 @@ const Login = () => {
     <div>
       <h1>Sign In Page</h1>
       <button type="button" onClick={logGoogleUser}>Log In with Google Pop-Up</button>
+      <Register />
     </div>
   );
 };
