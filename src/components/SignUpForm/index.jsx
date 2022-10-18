@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../../utils/firebase/firebase.utils';
-import FormInput from '../../FormInput';
-import Button from '../../Button';
-import './Register.styles.scss';
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
+import FormInput from '../FormInput';
+import Button from '../Button';
+import './SignUpForm.styles.scss';
 
-const Register = () => {
+const SignUpForm = () => {
   const defaultFormFields = {
     displayName: '',
     email: '',
@@ -24,10 +24,7 @@ const Register = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setFormFields({
-      ...formFields,
-      [name]: value,
-    });
+    setFormFields({ ...formFields, [name]: value });
   };
 
   const handleSubmit = async (event) => {
@@ -43,10 +40,12 @@ const Register = () => {
 
       await createUserDocumentFromAuth(user, { displayName });
 
+      alert('Account created successfully');
+
       setFormFields(defaultFormFields);
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        alert('Email already registerd!');
+        alert('Email already registered!');
       } else {
         console.log(error);
       }
@@ -56,61 +55,49 @@ const Register = () => {
   return (
     <div className="sign-up-container">
       <h2>Don&apos;t have an account?</h2>
-      <span>Sign Up with your email and password</span>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Display Name"
-          name="displayName"
+          type="text"
           required
-          inputOptions={{
-            type: 'text',
-            id: 'displayName',
-            onChange: handleChange,
-            value: displayName,
-          }}
+          onChange={handleChange}
+          name="displayName"
+          id="displayName"
+          value={displayName}
         />
 
         <FormInput
           label="Email"
-          name="email"
+          type="email"
           required
-          inputOptions={{
-            type: 'email',
-            id: 'email',
-            onChange: handleChange,
-            value: email,
-          }}
-
+          onChange={handleChange}
+          name="email"
+          id="email"
+          value={email}
         />
 
         <FormInput
           label="Password"
-          name="password"
+          type="password"
           required
-          inputOptions={{
-            type: 'password',
-            id: 'password',
-            onChange: handleChange,
-            value: password,
-          }}
+          onChange={handleChange}
+          name="password"
+          value={password}
         />
 
         <FormInput
           label="Confirm Password"
-          name="confirmPassword"
+          type="password"
           required
-          inputOptions={{
-            type: 'password',
-            id: 'confirmPassword',
-            onChange: handleChange,
-            value: confirmPassword,
-          }}
+          onChange={handleChange}
+          name="confirmPassword"
+          value={confirmPassword}
         />
-
         <Button type="submit">Sign Up</Button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default SignUpForm;

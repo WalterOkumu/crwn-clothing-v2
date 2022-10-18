@@ -2,7 +2,11 @@
 /* eslint-disable no-unused-vars */
 import { initializeApp } from 'firebase/app';
 import {
-  getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword,
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import {
   getFirestore, doc, getDoc, setDoc,
@@ -54,4 +58,10 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return false;
 
   return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return false;
+
+  return await signInWithEmailAndPassword(auth, email, password);
 };

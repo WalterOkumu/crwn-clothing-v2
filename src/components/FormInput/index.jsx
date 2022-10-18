@@ -2,12 +2,32 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import './FormInput.styles.scss';
 
-const FormInput = ({ label, name, inputOptions }) => (
+const FormInput = ({
+  label,
+  type,
+  required,
+  onChange,
+  name,
+  id,
+  value,
+}) => (
   <div className="group">
-    <input className="form-input" {...inputOptions} />
+    <input
+      className="form-input"
+      type={type}
+      required={required}
+      onChange={onChange}
+      name={name}
+      id={id}
+      value={value}
+
+    />
     {
       label && (
-        <label htmlFor={name} className={`${inputOptions.value.length ? 'shrink' : ''} form-input-label`}>
+        <label
+          className={`${value.length ? 'shrink' : ''} form-input-label`}
+          htmlFor={name}
+        >
           {label}
         </label>
       )

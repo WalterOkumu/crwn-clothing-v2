@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { signInWithGooglePopup, createUserDocumentFromAuth } from '../../../utils/firebase/firebase.utils';
-import Register from '../Register/index.';
-import './SignIn.styles.scss';
+import SignInForm from '../../SignInForm';
+import SignUpForm from '../../SignUpForm';
+import './Authentication.styles.scss';
 
-const Login = () => {
+const Authentication = () => {
   const logGoogleUser = async () => {
     const { user } = await signInWithGooglePopup();
 
@@ -11,12 +12,11 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Sign In Page</h1>
-      <button type="button" onClick={logGoogleUser}>Log In with Google Pop-Up</button>
-      <Register />
+    <div className="authentication-container">
+      <SignInForm />
+      <SignUpForm />
     </div>
   );
 };
 
-export default Login;
+export default Authentication;
