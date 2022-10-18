@@ -18,9 +18,7 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
 
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-
-    await createUserDocumentFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const {
@@ -32,13 +30,13 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(signInEmail, signInPassword);
+      const user = await signInAuthUserWithEmailAndPassword(signInEmail, signInPassword);
 
-      if (response) {
+      if (user) {
         alert('Sign In successful');
+
         setFormFields(defaultFormFields);
       }
-      console.log(response);
     } catch (error) {
       switch (error.code) {
         case 'auth/wrong-password':
