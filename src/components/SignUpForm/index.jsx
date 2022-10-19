@@ -31,7 +31,6 @@ const SignUpForm = () => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match!');
       return;
     }
 
@@ -40,16 +39,14 @@ const SignUpForm = () => {
 
       await createUserDocumentFromAuth(user, { displayName });
 
-      alert('Account created successfully');
-
       setFormFields(defaultFormFields);
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        alert('Email already registered!');
+        throw new Error('Email already registered!', error);
       } else if (error.code === 'auth/weak-password') {
-        alert('Password should be at least 6 characters!');
+        throw new Error('Password should be at least 6 characters!', error);
       } else {
-        console.log(error);
+        throw new Error(error);
       }
     }
   };
