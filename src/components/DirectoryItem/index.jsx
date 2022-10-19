@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import './CategoryItem.styles.scss';
+import './DirectoryItem.styles.scss';
 
-const CategoryItem = ({ category: { imageUrl, title } }) => (
-  <div className="category-item-container">
+const DirectoryItem = ({ directory: { imageUrl, title } }) => (
+  <div className="directory-item-container">
     <div
       className="background-image"
       style={{
@@ -12,11 +12,11 @@ const CategoryItem = ({ category: { imageUrl, title } }) => (
         backgroundRepeat: 'no-repeat',
       }}
     />
-    <div className="category-item-body-container">
+    <div className="body">
       <h2>{title}</h2>
       <p>Shop Now</p>
     </div>
   </div>
 );
 
-export default CategoryItem;
+export default DirectoryItem;
