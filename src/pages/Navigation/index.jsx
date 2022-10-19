@@ -2,12 +2,12 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useContext } from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { UserContext } from '../../../context/UserContext';
-import { CartContext } from '../../../context/CartContext';
-import { signOutUser } from '../../../utils/firebase/firebase.utils';
-import { ReactComponent as CrownLogo } from '../../../assets/crown.svg';
-import CartIcon from '../../CartIcon';
-import CartDropdown from '../../CartDropdown';
+import { UserContext } from '../../context/UserContext';
+import { CartContext } from '../../context/CartContext';
+import { signOutUser } from '../../utils/firebase/firebase.utils';
+import { ReactComponent as CrownLogo } from '../../assets/crown.svg';
+import CartIcon from '../../components/CartIcon';
+import CartDropdown from '../../components/CartDropdown';
 import './Navigation.styles.scss';
 
 const Navigation = () => {

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { signInWithGooglePopup, createUserDocumentFromAuth } from '../../../utils/firebase/firebase.utils';
-import SignInForm from '../../SignInForm';
-import SignUpForm from '../../SignUpForm';
+import { signInWithGooglePopup, createUserDocumentFromAuth } from '../../utils/firebase/firebase.utils';
+import SignInForm from '../../components/SignInForm';
+import SignUpForm from '../../components/SignUpForm';
 import './Authentication.styles.scss';
 
 const Authentication = () => {

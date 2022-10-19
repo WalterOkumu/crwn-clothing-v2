@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import Category from '../../Category';
+import Directory from '../../components/Directory';
 
 const Home = () => (
   <>
-    <Category />
+    <Directory />
     <Outlet />
   </>
 );
