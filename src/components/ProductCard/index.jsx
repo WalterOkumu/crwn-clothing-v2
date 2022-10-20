@@ -1,8 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
-import Button from '../Button';
-import './ProductCard.styles.scss';
+import Button, { BUTTON_TYPE_CLASSES } from '../Button';
+import {
+  ProductCardContainerDiv,
+  FooterDiv,
+  NameSpan,
+  PriceSpan,
+} from './ProductCard.styles';
 
 const ProductCard = ({ product }) => {
   const { name, price, imageUrl } = product;
@@ -12,16 +17,18 @@ const ProductCard = ({ product }) => {
   const addProductToCart = () => addToCart(product);
 
   return (
-    <div className="product-card-container">
+    <ProductCardContainerDiv>
       <img src={`${imageUrl}`} alt={`${name}`} />
-      <div className="footer">
-        <span className="name">{name}</span>
-        <span className="price">
+      <FooterDiv>
+        <NameSpan>{name}</NameSpan>
+        <PriceSpan>
           {price}
-        </span>
-      </div>
-      <Button buttonType="inverted" onClick={addProductToCart}>Add to Cart</Button>
-    </div>
+        </PriceSpan>
+      </FooterDiv>
+      <Button buttonType={BUTTON_TYPE_CLASSES.inverted} onClick={addProductToCart}>
+        Add to Cart
+      </Button>
+    </ProductCardContainerDiv>
   );
 };
 

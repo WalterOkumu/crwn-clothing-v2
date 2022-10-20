@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-props-no-spreading */
-import './FormInput.styles.scss';
+import { FormInputLabel, CustomInput, GroupDiv } from './FormInput.styles';
 
 const FormInput = ({
   label,
@@ -11,28 +10,23 @@ const FormInput = ({
   id,
   value,
 }) => (
-  <div className="group">
-    <input
-      className="form-input"
+  <GroupDiv>
+    <CustomInput
       type={type}
       required={required}
       onChange={onChange}
       name={name}
       id={id}
       value={value}
-
     />
     {
       label && (
-        <label
-          className={`${value.length ? 'shrink' : ''} form-input-label`}
-          htmlFor={name}
-        >
+        <FormInputLabel shrink={value.length} htmlFor={name}>
           {label}
-        </label>
+        </FormInputLabel>
       )
     }
-  </div>
+  </GroupDiv>
 );
 
 export default FormInput;

@@ -1,14 +1,16 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useContext } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { CartContext } from '../../context/CartContext';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 import { ReactComponent as CrownLogo } from '../../assets/crown.svg';
 import CartIcon from '../../components/CartIcon';
 import CartDropdown from '../../components/CartDropdown';
-import './Navigation.styles.scss';
+import {
+  NavigationContainer, NavLinks, NavLink, LogoContainer,
+} from './Navigation.styles';
 
 const Navigation = () => {
   const { currentUser } = useContext(UserContext);
@@ -16,32 +18,32 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="navigation">
-        <Link className="logo-container" to="/">
+      <NavigationContainer>
+        <LogoContainer to="/">
           <CrownLogo className="logo" />
-        </Link>
-        <div className="nav-links-container">
-          <Link className="nav-link" to="/shop">
+        </LogoContainer>
+        <NavLinks>
+          <NavLink to="/shop">
             SHOP
-          </Link>
+          </NavLink>
           {
             currentUser ? (
-              <span className="nav-link" onClick={signOutUser}>
+              <NavLink as="span" onClick={signOutUser}>
                 SIGN OUT
-              </span>
+              </NavLink>
             )
               : (
-                <Link className="nav-link" to="/auth">
+                <NavLink to="/auth">
                   SIGN IN
-                </Link>
+                </NavLink>
               )
           }
           <CartIcon />
-        </div>
+        </NavLinks>
         {
           isCartOpen && <CartDropdown />
         }
-      </div>
+      </NavigationContainer>
       <Outlet />
     </>
   );

@@ -1,44 +1,47 @@
 import DirectoryItem from '../DirectoryItem';
-import './Directory.styles.scss';
+import { DirectoryContainerDiv } from './Directory.styles';
 
-const Directory = () => {
-  const directories = [
-    {
-      id: 1,
-      title: 'hats',
-      imageUrl: 'images/hats.png',
-    },
-    {
-      id: 2,
-      title: 'jackets',
-      imageUrl: 'images/jackets.png',
-    },
-    {
-      id: 3,
-      title: 'sneakers',
-      imageUrl: 'images/sneakers.png',
-    },
-    {
-      id: 4,
-      title: 'womens',
-      imageUrl: 'images/womens.png',
-    },
-    {
-      id: 5,
-      title: 'mens',
-      imageUrl: 'images/men.png',
-    },
-  ];
+const directories = [
+  {
+    id: 1,
+    title: 'hats',
+    imageUrl: 'https://raw.githubusercontent.com/WalterOkumu/crwn-clothing-v2/main/public/images/hats.png',
+    route: 'shop/hats',
+  },
+  {
+    id: 2,
+    title: 'jackets',
+    imageUrl: 'https://raw.githubusercontent.com/WalterOkumu/crwn-clothing-v2/main/public/images/jackets.png',
+    route: 'shop/jackets',
+  },
+  {
+    id: 3,
+    title: 'sneakers',
+    imageUrl: 'https://raw.githubusercontent.com/WalterOkumu/crwn-clothing-v2/main/public/images/sneakers.png',
+    route: 'shop/sneakers',
+  },
+  {
+    id: 4,
+    title: 'womens',
+    imageUrl: 'https://raw.githubusercontent.com/WalterOkumu/crwn-clothing-v2/main/public/images/womens.png',
+    route: 'shop/womens',
+  },
+  {
+    id: 5,
+    title: 'mens',
+    imageUrl: 'https://raw.githubusercontent.com/WalterOkumu/crwn-clothing-v2/main/public/images/men.png',
+    route: 'shop/mens',
+  },
+];
 
-  return (
-    <div className="directory-container">
-      {
+const Directory = () => (
+  <DirectoryContainerDiv>
+    {
         directories.map((directory) => (
           <DirectoryItem key={directory.id} directory={directory} />
         ))
       }
-    </div>
-  );
-};
+  </DirectoryContainerDiv>
+);
 
 export default Directory;

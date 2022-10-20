@@ -1,9 +1,6 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { useContext } from 'react';
 import { CartContext } from '../../context/CartContext';
-import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
-import './CartIcon.styles.scss';
+import { CartIconContainerDiv, ItemCountSpan, ShoppingIcon } from './CartIcon.styles';
 
 const CartIcon = () => {
   const { isCartOpen, setIsCartOpen, cartCount } = useContext(CartContext);
@@ -11,10 +8,10 @@ const CartIcon = () => {
   const toggleCart = () => setIsCartOpen(!isCartOpen);
 
   return (
-    <div className="cart-icon-container" onClick={toggleCart}>
-      <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">{cartCount}</span>
-    </div>
+    <CartIconContainerDiv onClick={toggleCart}>
+      <ShoppingIcon />
+      <ItemCountSpan>{cartCount}</ItemCountSpan>
+    </CartIconContainerDiv>
   );
 };
 
