@@ -1,5 +1,17 @@
 /* eslint-disable react/prop-types */
-import { createContext, useState, useEffect } from 'react';
+import { createContext, /* useState, useEffect, */ useReducer } from 'react';
+import createAction from '../../utils/reducer/reducer.utils';
+
+export const CartContext = createContext({
+  isCartOpen: false,
+  cartItems: [],
+  cartCount: 0,
+  total: 0,
+  setIsCartOpen: () => { },
+  addToCart: () => { },
+  removeFromCart: () => { },
+  clearItemFromCart: () => { },
+});
 
 const addCartItems = (cartItems, product) => {
   // find if cartItems contains products
@@ -40,48 +52,98 @@ const removeItemFromCart = (
   product,
 ) => cartItems.filter((item) => item.id !== product.id);
 
-export const CartContext = createContext({
+const initialState = {
   isCartOpen: false,
   cartItems: [],
   cartCount: 0,
   total: 0,
-  setIsCartOpen: () => { },
-  addToCart: () => { },
-  removeFromCart: () => { },
-  clearItemFromCart: () => { },
-});
+};
+
+export const CART_ACTION_TYPES = {
+  SET_CART_ITEMS: 'SET_CART_ITEMS',
+  SET_IS_CART_OPEN: 'SET_IS_CART_OPEN',
+};
+
+const cartReducer = (state, { type, payload }) => {
+  switch (type) {
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
+      return {
+        ...state,
+        ...payload,
+      };
+
+    case CART_ACTION_TYPES.SET_IS_CART_OPEN:
+      return {
+        ...state,
+        isCartOpen: payload,
+      };
+
+    default:
+      throw new Error(`Unhandled type ${type} in userReducer`);
+  }
+};
 
 export const CartProvider = ({ children }) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
-  const [total, setTotal] = useState(0);
+  // const [isCartOpen, setIsCartOpen] = useState(false);
+  // const [cartItems, setCartItems] = useState([]);
+  // const [cartCount, setCartCount] = useState(0);
+  // const [total, setTotal] = useState(0);
 
-  const addToCart = (product) => {
-    setCartItems(addCartItems(cartItems, product));
-  };
+  const [{
+    cartItems,
+    isCartOpen,
+    cartCount,
+    total,
+  }, dispatch] = useReducer(cartReducer, initialState);
 
-  const removeFromCart = (product) => {
-    setCartItems(reduceCartQuantity(cartItems, product));
-  };
+  const updateCartItemsReducer = (newCartItems) => {
+    const newCartCount = newCartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
 
-  const clearItemFromCart = (product) => {
-    setCartItems(removeItemFromCart(cartItems, product));
-  };
-
-  useEffect(() => {
-    const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
-
-    setCartCount(newCartCount);
-  }, [cartItems]);
-
-  useEffect(() => {
-    const newCartTotal = cartItems.reduce((total, cartItem) => (
+    const newCartTotal = newCartItems.reduce((total, cartItem) => (
       total + cartItem.price * cartItem.quantity
     ), 0);
 
-    setTotal(newCartTotal);
-  }, [cartItems]);
+    dispatch(
+      createAction(CART_ACTION_TYPES.SET_CART_ITEMS, {
+        cartItems: newCartItems,
+        total: newCartTotal,
+        cartCount: newCartCount,
+      }),
+    );
+  };
+
+  const addToCart = (product) => {
+    const newCartItems = addCartItems(cartItems, product);
+    updateCartItemsReducer(newCartItems);
+  };
+
+  const removeFromCart = (product) => {
+    const newCartItems = reduceCartQuantity(cartItems, product);
+    updateCartItemsReducer(newCartItems);
+  };
+
+  const clearItemFromCart = (product) => {
+    const newCartItems = removeItemFromCart(cartItems, product);
+    updateCartItemsReducer(newCartItems);
+  };
+
+  // useEffect(() => {
+  //   const newCartCount = cartItems.reduce((total, cartItem) => total + cartItem.quantity, 0);
+
+  //   setCartCount(newCartCount);
+  // }, [cartItems]);
+
+  // useEffect(() => {
+  //   const newCartTotal = cartItems.reduce((total, cartItem) => (
+  //     total + cartItem.price * cartItem.quantity
+  //   ), 0);
+
+  //   setTotal(newCartTotal);
+  // }, [cartItems]);
+
+  const setIsCartOpen = (bool) => {
+    dispatch(createAction(CART_ACTION_TYPES.SET_IS_CART_OPEN, bool));
+  };
 
   const value = {
     isCartOpen,
