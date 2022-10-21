@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+import { useSelector } from 'react-redux';
 import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext';
+import { selectCurrentUser } from '../../redux/user/user-selector';
 import { CartContext } from '../../context/CartContext';
 import { signOutUser } from '../../utils/firebase/firebase.utils';
 import { ReactComponent as CrownLogo } from '../../assets/crown.svg';
@@ -13,7 +12,7 @@ import {
 } from './Navigation.styles';
 
 const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
   const { isCartOpen } = useContext(CartContext);
 
   return (
